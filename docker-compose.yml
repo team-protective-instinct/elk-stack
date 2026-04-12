@@ -116,6 +116,24 @@ services:
       - 5601:5601
     environment:
       KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
+      KIBANA_ENCRYPTED_SAVED_OBJECTS_ENCRYPTION_KEY: ${KIBANA_ENCRYPTED_SAVED_OBJECTS_ENCRYPTION_KEY:-}
+      KIBANA_REPORTING_ENCRYPTION_KEY: ${KIBANA_REPORTING_ENCRYPTION_KEY:-}
+      KIBANA_SECURITY_ENCRYPTION_KEY: ${KIBANA_SECURITY_ENCRYPTION_KEY:-}
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+
+  elastalert:
+    image: jertel/elastalert2:latest
+    container_name: elastalert
+    environment:
+      ES_PASSWORD: ${ES_PASSWORD:-}
+      TZ: Asia/Seoul
+    volumes:
+      - ./elastalert/config.yaml:/opt/elastalert/config.yaml:ro
+      - ./elastalert/rules:/opt/elastalert/rules:ro
     networks:
       - elk
     depends_on:
@@ -124,6 +142,8 @@ services:
 
 networks:
   elk:
+    external: true
+    name: elk-stack
     driver: bridge
 
 volumes:

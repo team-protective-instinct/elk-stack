@@ -97,3 +97,7 @@ xpack.fleet.agentPolicies:
                 value: 0.0.0.0:8200
               - name: url
                 value: http://apm-server:8200
+
+xpack.encryptedSavedObjects.encryptionKey: ${KIBANA_ENCRYPTED_SAVED_OBJECTS_ENCRYPTION_KEY}
+xpack.reporting.encryptionKey: ${KIBANA_REPORTING_ENCRYPTION_KEY} 
+xpack.security.encryptionKey: ${KIBANA_SECURITY_ENCRYPTION_KEY}

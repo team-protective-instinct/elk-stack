@@ -1,0 +1,23 @@
+# ELK Stack specific
+/data
+/elasticsearch/data
+/logstash/data
+/kibana/data
+*.log
+logs/
+.log
+
+# Docker
+docker-compose.override.yml
+.env
+
+# Environment & IDE
+.idea/
+.vscode/
+*.swp
+*.DS_Store
+
+# Temporary files
+/tmp
+/temp
+
