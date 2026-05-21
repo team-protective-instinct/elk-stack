@@ -345,6 +345,39 @@ logstash:
 Please refer to the following documentation page for more details about how to configure Logstash inside Docker
 containers: [Configuring Logstash for Docker][ls-docker].
 
+### How to use the Elasticsearch MCP server
+
+This stack includes Elastic's standalone Elasticsearch MCP server for MCP-compatible clients. It connects to the local
+Elasticsearch service over the Docker network using `http://elasticsearch:9200` and authenticates with the `elastic`
+user via `ELASTIC_PASSWORD` from `.env`.
+
+Start it with the rest of the stack:
+
+```sh
+docker compose up -d elasticsearch-mcp
+```
+
+The streamable HTTP MCP endpoint is available at:
+
+```text
+http://localhost:8080/mcp
+```
+
+Health check:
+
+```sh
+curl http://localhost:8080/ping
+```
+
+It should return `Ready`.
+
+For Cursor, VS Code, or another MCP client that supports streamable HTTP, point the client at
+`http://localhost:8080/mcp`. Do not expose port `8080` publicly; the MCP server can query Elasticsearch with the
+configured credentials.
+
+For Claude Desktop clients that only support stdio, use an MCP proxy such as `mcp-remote` or `mcp-proxy` to bridge to
+`http://localhost:8080/mcp`.
+
 ### How to disable paid features
 
 You can cancel an ongoing trial before its expiry date — and thus revert to a basic license — either from the [License

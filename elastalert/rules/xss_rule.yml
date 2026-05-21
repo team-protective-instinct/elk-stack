@@ -1,0 +1,29 @@
+name: "XSS Attack Detected"
+type: any
+
+index: ".ds-logs-generic-default-*"
+
+filter:
+- query:
+    query_string:
+      query: >
+        (fields.service:"metasploitable2-apache" OR service.name:"metasploitable2-apache" OR fields.service:"modsecurity-waf" OR service.name:"modsecurity-waf")
+        AND
+        message:("/vulnerabilities/xss_r/" OR "/vulnerabilities/xss_s/" OR "%3Cscript" OR "%3CScRiPt" OR "<script" OR "<ScRiPt" OR "document.cookie" OR "attacker.com/steal" OR "attacker.com/log" OR "XSS_STAGE" OR "new%20Image" OR "new Image" OR "document.write" OR "alert(document.cookie)")
+
+alert:
+- "post"
+
+# 전달받은 Webhook URL
+http_post_url: "http://host.docker.internal:8000/webhook"
+
+# Webhook으로 전송될 JSON 페이로드 구조
+http_post_payload:
+  timestamp: "@timestamp"
+  log_message: "message"
+
+http_post_static_payload:
+  title: "XSS 공격 탐지"
+  rule_name: "XSS Webhook Rule"
+  alert_name: "xss_detected"
+  severity: "medium"

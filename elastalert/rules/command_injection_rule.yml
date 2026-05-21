@@ -1,0 +1,31 @@
+name: "Command Injection Detected"
+type: any
+
+index: ".ds-logs-generic-default-*"
+
+filter:
+- query:
+    query_string:
+      query: >
+        (fields.service:"metasploitable2-apache" OR service.name:"metasploitable2-apache" OR fields.service:"modsecurity-waf" OR service.name:"modsecurity-waf")
+        AND
+        message:("/vulnerabilities/exec/" OR "cmd=" OR "ip=")
+        AND
+        message:("whoami" OR "id" OR "uname" OR "cat%20%2Fetc%2Fpasswd" OR "cat /etc/passwd" OR "%2Fetc%2Fpasswd" OR "cat%20%2Fetc%2Fshadow" OR "cat /etc/shadow" OR "%2Fetc%2Fshadow" OR "sudo" OR "sudo%20-l" OR "find%20%2F%20-perm%20-u%3Ds" OR "find / -perm -u=s" OR "crontab" OR "%2Fetc%2Fcrontab" OR "useradd" OR "VULN_TEST" OR "PIPE_TEST" OR "%3B" OR "%7C" OR "2%3E%261")
+
+alert:
+- "post"
+
+# 전달받은 Webhook URL
+http_post_url: "http://host.docker.internal:8000/webhook"
+
+# Webhook으로 전송될 JSON 페이로드 구조
+http_post_payload:
+  timestamp: "@timestamp"
+  log_message: "message"
+
+http_post_static_payload:
+  title: "Command Injection 공격 탐지"
+  rule_name: "Command Injection Webhook Rule"
+  alert_name: "command_injection_detected"
+  severity: "high"
