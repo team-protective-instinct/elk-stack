@@ -140,6 +140,21 @@ services:
       - elasticsearch
     restart: unless-stopped
 
+  elasticsearch-mcp:
+    image: docker.elastic.co/mcp/elasticsearch
+    command: http
+    environment:
+      ES_URL: http://elasticsearch:9200
+      ES_USERNAME: elastic
+      ES_PASSWORD: ${ELASTIC_PASSWORD:-}
+    ports:
+      - 8080:8080
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+
 networks:
   elk:
     external: true
