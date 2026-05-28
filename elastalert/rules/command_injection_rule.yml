@@ -7,11 +7,9 @@ filter:
 - query:
     query_string:
       query: >
-        (fields.service:"metasploitable2-apache" OR service.name:"metasploitable2-apache" OR fields.service:"modsecurity-waf" OR service.name:"modsecurity-waf")
+        (fields.service:"dvwa-apache" OR service.name:"dvwa-apache")
         AND
-        message:("/vulnerabilities/exec/" OR "cmd=" OR "ip=")
-        AND
-        message:("whoami" OR "id" OR "uname" OR "cat%20%2Fetc%2Fpasswd" OR "cat /etc/passwd" OR "%2Fetc%2Fpasswd" OR "cat%20%2Fetc%2Fshadow" OR "cat /etc/shadow" OR "%2Fetc%2Fshadow" OR "sudo" OR "sudo%20-l" OR "find%20%2F%20-perm%20-u%3Ds" OR "find / -perm -u=s" OR "crontab" OR "%2Fetc%2Fcrontab" OR "useradd" OR "VULN_TEST" OR "PIPE_TEST" OR "%3B" OR "%7C" OR "2%3E%261")
+        message:("/vulnerabilities/exec/" OR "VULN_TEST" OR "PIPE_TEST" OR "%3B" OR "%7C")
 
 alert:
 - "post"

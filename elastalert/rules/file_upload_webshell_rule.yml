@@ -7,9 +7,9 @@ filter:
 - query:
     query_string:
       query: >
-        (fields.service:"metasploitable2-apache" OR service.name:"metasploitable2-apache" OR fields.service:"modsecurity-waf" OR service.name:"modsecurity-waf")
+        (fields.service:"dvwa-apache" OR service.name:"dvwa-apache")
         AND
-        message:("/vulnerabilities/upload/" OR "/hackable/uploads/" OR "shell.php" OR "recon_shell.php" OR ".htaccess.php" OR "avatar.php" OR "application/x-php" OR "shell_exec" OR "system" OR "cmd=" OR "q=" OR "c=" OR "SHELL_OK" OR "BACKDOOR_ALIVE")
+        message:("/vulnerabilities/upload/" OR "/hackable/uploads/" OR "shell.php" OR "recon_shell.php" OR ".htaccess.php" OR "avatar.php" OR "cmd=" OR "q=" OR "c=" OR "SHELL_OK" OR "BACKDOOR_ALIVE")
 
 alert:
 - "post"

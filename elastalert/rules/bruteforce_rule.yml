@@ -11,9 +11,9 @@ filter:
 - query:
     query_string:
       query: >
-        (fields.service:"metasploitable2-apache" OR service.name:"metasploitable2-apache" OR fields.service:"modsecurity-waf" OR service.name:"modsecurity-waf")
+        (fields.service:"dvwa-apache" OR service.name:"dvwa-apache")
         AND
-        message:("/vulnerabilities/brute/" AND "password=")
+        message:("/vulnerabilities/brute/" AND "username=admin" AND "password=")
 
 alert:
 - "post"

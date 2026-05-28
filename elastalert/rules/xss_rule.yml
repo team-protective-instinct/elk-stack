@@ -7,7 +7,7 @@ filter:
 - query:
     query_string:
       query: >
-        (fields.service:"metasploitable2-apache" OR service.name:"metasploitable2-apache" OR fields.service:"modsecurity-waf" OR service.name:"modsecurity-waf")
+        (fields.service:"dvwa-apache" OR service.name:"dvwa-apache")
         AND
         message:("/vulnerabilities/xss_r/" OR "/vulnerabilities/xss_s/" OR "%3Cscript" OR "%3CScRiPt" OR "<script" OR "<ScRiPt" OR "document.cookie" OR "attacker.com/steal" OR "attacker.com/log" OR "XSS_STAGE" OR "new%20Image" OR "new Image" OR "document.write" OR "alert(document.cookie)")
 

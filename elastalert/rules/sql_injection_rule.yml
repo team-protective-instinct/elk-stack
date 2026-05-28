@@ -7,7 +7,7 @@ filter:
 - query:
     query_string:
       query: >
-        (fields.service:"metasploitable2-apache" OR service.name:"metasploitable2-apache")
+        (fields.service:"dvwa-apache" OR service.name:"dvwa-apache")
         AND
         message:("/vulnerabilities/sqli/" OR "UNION" OR "SELECT" OR "FROM" OR "users" OR "password" OR "information_schema" OR "database" OR "version" OR "waitfor" OR "sleep" OR "%27" OR "%25%27" OR "%3D" OR "%23" OR "%2C" OR "1%3D0" OR "1%3D1")
 
