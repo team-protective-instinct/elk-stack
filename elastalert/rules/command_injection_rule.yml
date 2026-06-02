@@ -9,7 +9,7 @@ filter:
       query: >
         (fields.service:"dvwa-apache" OR service.name:"dvwa-apache")
         AND
-        message:("/vulnerabilities/exec/" OR "VULN_TEST" OR "PIPE_TEST" OR "%3B" OR "%7C")
+        message:("/vulnerabilities/exec/" AND ("VULN_TEST" OR "PIPE_TEST" OR "cmd=" OR "%3B" OR "%7C"))
 
 alert:
 - "post"
